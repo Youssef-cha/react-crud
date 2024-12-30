@@ -10,6 +10,7 @@ import MainLayout from "./layouts/MainLayout";
 import NotFound from "./pages/NotFound";
 import JobPage, { jobLoader } from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
+import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
   const addjob = async (newJob) => {
@@ -25,14 +26,23 @@ const App = () => {
     return await fetch(`/api/jobs/${id}`, {
       method: "DELETE",
     });
-  }
+  };
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/add-job" element={<AddJobPage addJobSubmit={addjob} />} />
-        <Route loader={jobLoader} path="/jobs/:id" element={<JobPage />} />
+        <Route
+          loader={jobLoader}
+          path="/jobs/:id"
+          element={<JobPage deleteJob={deleteJob} />}
+        />
+        <Route
+          element={<EditJobPage />}
+          path="/edit-job/:id"
+          loader={jobLoader}
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
     )
