@@ -1,3 +1,6 @@
+environment {
+        NODEJS_HOME = tool 'NodeJS 20'                // Tool path for NodeJS
+    }
 stage('Install Dependencies') {
 
             steps {
