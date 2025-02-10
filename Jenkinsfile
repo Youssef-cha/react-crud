@@ -1,29 +1,36 @@
-pipeline {
-    agent any
+stage('Install Dependencies') {
 
-    stages {
-        stage('Clone Repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/Youssef-cha/react-crud.git'
+
+                echo 'Installing dependencies...'
+
+                bat 'npm install'
+
             }
+
         }
 
         stage('Build') {
+
             steps {
-                echo 'Building the application...'
+
+                echo 'Building application...'
+
+                bat 'npm run build'
+
             }
+
         }
 
         stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
 
-        stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+
+                echo 'Testion application...'
+
+                bat 'npm test -- --watchAll=false'
+
             }
+
         }
-    }
-}
+ 
